@@ -39,8 +39,10 @@
         <activity
             android:name=".Search"
             android:label="Search"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".BottomTab"
+            android:label="@string/title_activity_bottom_tab"></activity>
     </application>
 
 </manifest>
