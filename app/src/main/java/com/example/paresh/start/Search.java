@@ -2,16 +2,26 @@ package com.example.paresh.start;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -37,7 +47,6 @@ public class Search extends AppCompatActivity{
 
     // ArrayList for Listview
     ArrayList<UserDetails> userList;
-    ArrayList<UserDetails> filtered;
     private ProgressBar progressBar;
 
     @Override
@@ -50,6 +59,7 @@ public class Search extends AppCompatActivity{
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         inputSearch = (EditText) findViewById(R.id.inputSearch);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         userList = new ArrayList<>();
 
@@ -65,14 +75,13 @@ public class Search extends AppCompatActivity{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    String value = postSnapshot.getKey().toString();
+                    progressBar.setVisibility(ProgressBar.INVISIBLE);
                     String name = postSnapshot.child("name").getValue().toString();
                     String email = postSnapshot.child("email").getValue().toString();
                     String phone = postSnapshot.child("phone").getValue().toString();
                     String room = postSnapshot.child("room").getValue().toString();
                     userList.add(new UserDetails(name,email,phone,room));
                     adapterSearch.notifyDataSetChanged();
-                    Log.d("pstSnp",name);
                 }
             }
 
@@ -136,5 +145,24 @@ public class Search extends AppCompatActivity{
             }
         }
         return filtered;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
