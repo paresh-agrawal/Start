@@ -27,7 +27,6 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".SignupActivity" />
-        <activity android:name=".Schedule_Day" />
         <activity
             android:name=".Main2Activity"
             android:label="@string/title_activity_main2" />
@@ -39,7 +38,8 @@
             android:label="@string/title_activity_scrolling" />
         <activity
             android:name=".Search"
-            android:windowSoftInputMode="stateHidden">
+            android:label="Search"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 
